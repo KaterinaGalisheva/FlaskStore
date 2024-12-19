@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+<h2>Корзина</h2>
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product.name }} - {{ product.price }} руб.
+        </li>
+    {% endfor %}
+</ul>
+<p>Итого: {{ total_cost }} руб.</p>
+<form action="/clear_cart" method="post">
+    <button type="submit">Очистить корзину</button>
+</form>
+<a href="/">Назад к продуктам</a>
+{% endblock %}

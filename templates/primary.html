@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <h1>Исследуйте наш ассортимент космических товаров</h1>
+    <a href="{{ url_for('store') }}" class="button">Космический магазин</a>
+
+    <h2>Мы предлагаем широкий выбор товаров для любителей космоса. От моделей космических кораблей до уникальных сувениров. У нас есть всё, что может вас заинтересовать!</h2>
+    
+    <div class="image-section">
+        <img src="{{ url_for('static', filename='primary_image.jpg') }}" alt="Изображение космических товаров">
+    </div>
+</div>
+
+{% endblock %}

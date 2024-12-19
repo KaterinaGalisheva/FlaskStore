@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Магазин{% endblock %}
+
+{% block content %}
+<h2>Наши товары</h2>
+
+<div class="product-list">
+    {% for product in products.items %}
+        <div class="product">
+            <img src="{{ url_for('static', filename=product.image) }}" style="max-width: 200px; max-height: 200px;">
+            <h3>Название: {{ product.name }}</h3>
+            <p>Описание: {{ product.description }}</p>
+            <p>Цена: {{ product.price }} руб.</p>
+            <form action="{{ url_for('buy_product', product_id=product.id) }}" method="post">
+                <button type="submit">Купить</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if products.has_prev %}
+        <a href="{{ url_for('store', page=products.prev_num) }}">Назад</a>
+    {% endif %}
+    <span>Страница {{ products.page }} из {{ products.pages }}</span>
+    {% if products.has_next %}
+        <a href="{{ url_for('store', page=products.next_num) }}">Вперед</a>
+    {% endif %}
+</div>
+
+<a href="{{ url_for('index') }}">Назад на главную</a>
+{% endblock %}

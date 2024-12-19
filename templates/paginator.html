@@ -1,0 +1,39 @@
+<!-- Выпадающий список для выбора количества элементов на странице -->
+<div>
+    <label for="items-per-page">Элементов на странице:</label>
+    <select id="items-per-page" onchange="changeItemsPerPage(this.value)">
+        <option value="2" {% if request.GET.items_per_page == '2' %}selected{% endif %}>2</option>
+        <option value="4" {% if request.GET.items_per_page == '4' %}selected{% endif %}>4</option>
+        <option value="8" {% if request.GET.items_per_page == '8' %}selected{% endif %}>8</option>
+        <option value="12" {% if request.GET.items_per_page == '12' %}selected{% endif %}>12</option>
+    </select>
+</div>
+
+<!-- Кастомная пагинация -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a class="pagination-link" href="?page=1&items_per_page={{ request.GET.items_per_page }}"><< Первая</a>
+            <a class="pagination-link" href="?page={{ page_obj.previous_page_number }}&items_per_page={{ request.GET.items_per_page }}">Предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            <p>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p>
+        </span>
+
+        {% if page_obj.has_next %}
+            <a class="pagination-link" href="?page={{ page_obj.next_page_number }}&items_per_page={{ request.GET.items_per_page }}">Следующая</a>
+            <a class="pagination-link" href="?page={{ page_obj.paginator.num_pages }}&items_per_page={{ request.GET.items_per_page }}">Последняя >></a>
+        {% endif %}
+    </span>
+</div>
+
+<script>
+function changeItemsPerPage(value) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('items_per_page', value);
+    urlParams.set('page', 1); // Сбрасываем на первую страницу
+    window.location.search = urlParams.toString();
+}
+</script>
+
